@@ -2,10 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import xgboost as xgb
 
 # Load the pre-trained XGBoost model
-with open('xgboost_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+with open("xgboost_model.pkl", "rb") as model_file:
+    xgb_model = pickle.load(model_file)
+
 
 # Load the cleaned data
 cleaned_data = pd.read_csv('Cleaned_data.csv')
@@ -39,7 +41,7 @@ def main():
 
     if st.sidebar.button('Predict Price'):
         # Make predictions
-        predicted_price = model.predict(user_input)
+        predicted_price = xgb_model.predict(user_input)
 
         # Display the predicted selling price in the main content area
         st.subheader('Predicted Selling Price:')
