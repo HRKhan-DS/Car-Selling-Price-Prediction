@@ -1,17 +1,17 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import pickle
 import xgboost as xgb
+import pickle
 
-# Load the pre-trained XGBoost model
+# Load the pre-trained XGBoost model with Booster
+bst = xgb.Booster(model_file='xgboost_model.json')  # Adjust the filename accordingly
+
+# Load the pre-trained XGBoost model with pickle
 with open("xgboost_model.pkl", "rb") as model_file:
     xgb_model = pickle.load(model_file)
 
-
 # Load the cleaned data
 cleaned_data = pd.read_csv('Cleaned_data.csv')
-
 
 def main():
     st.title('Car Selling Price Prediction')
