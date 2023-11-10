@@ -3,10 +3,6 @@ import pandas as pd
 import xgboost as xgb
 import pickle
 
-# Load the pre-trained XGBoost model with Booster
-bst = xgb.Booster()
-bst.load_model('xgboost_model.json')  # Adjust the filename accordingly
-
 # Load the pre-trained XGBoost model with pickle
 with open("xgboost_model.pkl", "rb") as model_file:
     xgb_model = pickle.load(model_file)
@@ -42,7 +38,7 @@ def main():
 
     if st.sidebar.button('Predict Price'):
         # Make predictions
-        predicted_price = bst.predict(xgb.DMatrix(user_input))  # Use DMatrix for prediction
+        predicted_price = xgb_model.predict(user_input)  # Use DMatrix for prediction
 
         # Display the predicted selling price in the main content area
         st.subheader('Predicted Selling Price:')
@@ -58,4 +54,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
